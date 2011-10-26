@@ -1,85 +1,92 @@
-set noswapfile
+" Autocmd Options
+if has("autocmd")
+  " Automagically reload vimrc after edit.
+  autocmd bufwritepost .vimrc source $MYVIMRC 
+  autocmd bufwritepost _vimrc source $MYVIMRC " Windows :|
 
-" ----------------------------------------------------------------------------
-"  Text Formatting
-" ----------------------------------------------------------------------------
+  " Load indent files for language-dependent indenting.
+  call pathogen#helptags()
+  call pathogen#runtime_append_all_bundles()
+  filetype on
+  filetype indent on
+  filetype plugin on
 
-set autoindent             " automatic indent new lines
-set smartindent            " be smart about it
-inoremap # X<BS>#
-set nowrap                 " do not wrap lines
-set softtabstop=2          " yep, two
-set shiftwidth=2           " ..
+  " JSON.vim
+  au! BufRead,BufNewFile *.json set filetype=json foldmethod=syntax 
+  au! BufRead,BufNewFile *.js   set filetype=javascript syntax=jquery
+endif
+
+" Regular Options
+set number				" Line numbers
+set showmatch				" Match opening/closing punctuation together
+set nobackup				" Git is my backup.
+set nowritebackup			" Git is my backup.
+set noswapfile                " Git is my backup.
+set ruler					" Cursor position
+set cursorline				" Highlight line of the cursor
+
+set history=2000			" Command history
+
+set autochdir                 " Change the edit/open directory to the currently open file
+
+
+" Indentation
+set autoindent
+set smartindent
 set tabstop=4
-set expandtab              " expand tabs to spaces
-set nosmarttab             " fuck tabs
-set formatoptions+=n       " support for numbered/bullet lists
-"set textwidth=80           " wrap at 80 chars by default
-set virtualedit=block      " allow virtual edit in visual block ..
+set shiftwidth=4
+set smarttab
+set expandtab
 
-" ----------------------------------------------------------------------------
-"  Remapping
-" ----------------------------------------------------------------------------
+" Search
+set ignorecase
+set smartcase
+set incsearch
+set showmatch
+set nohlsearch
 
-" lead with ,
-let mapleader = ","
+" For autocompletion
+set wildmode=list:longest,list:full
 
-" exit to normal mode with 'jj'
-inoremap jj <ESC>
+set guifont=Courier:h15
 
+" Color Scheme
+syntax enable
+set background=light
+colorscheme solarized
 
-" reflow paragraph with Q in normal and visual mode
-nnoremap Q gqap
-vnoremap Q gq
+" Split to the right and bottom
+set splitbelow
+set splitright
 
-" sane movement with wrap turned on
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
+" Change the way we move around splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-" ----------------------------------------------------------------------------
-"  UI
-" ----------------------------------------------------------------------------
+" Escape alternative
+imap jj <Esc>
 
-set ruler                  " show the cursor position all the time
-set noshowcmd              " don't display incomplete commands
-set nolazyredraw           " turn off lazy redraw
-set number                 " line numbers
-set wildmenu               " turn on wild menu
-set wildmode=list:longest,full
-set ch=2                   " command line height
-set backspace=2            " allow backspacing over everything in insert mode
-set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
-set shortmess=filtIoOA     " shorten messages
-set report=0               " tell us about changes
-set nostartofline          " don't jump to the start of line when scrolling
+" Map space to : in normal mode
+nmap <space> :
 
+" Disable scrollbars
+set guioptions-=l
+set guioptions-=r
+set guioptions-=b
+set scrolloff=3
 
-" ----------------------------------------------------------------------------
-" Visual Cues
-" ----------------------------------------------------------------------------
-
-set showmatch              " brackets/braces that is
-set mat=5                  " duration to show matching brace (1/10 sec)
-set incsearch              " do incremental searching
-set laststatus=2           " always show the status line
-set ignorecase             " ignore case when searching
-set nohlsearch             " don't highlight searches
-set visualbell             " shut the fuck up
-
-
-" ---------------------------------------------------------------------------
-"  Strip all trailing whitespace in file
-" ---------------------------------------------------------------------------
-
-function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
-endfunction
-map ,s :call StripWhitespace ()<CR>
+" No Mercy!
+no <down> ddp
+no <left> <Nop>
+no <right> <Nop>
+no <up> ddkP
+ino <down> <Nop>
+ino <left> <Nop>
+ino <right> <Nop>
+ino <up> <Nop>
+vno <down> <Nop>
+vno <left> <Nop>
+vno <up> <Nop>
+vno <right> <Nop>
