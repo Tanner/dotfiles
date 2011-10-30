@@ -1,15 +1,6 @@
-# Sample gitconfig
-#
-# This is a sample gitconfig. Usually we keep a lot of sensitive information
-# here (things like authentication tokens, email addresses, and so on), so this
-# file is ignored in this project's .gitignore.
-#
-# To set this up, rename this file to `gitconfig.symlink` and you'll be able to
-# install this to the correct location by running the project's main `rake`
-# task.
 [user]
-        name = Zach Holman
-        email = your@example.com
+        name = Tanner Smith
+        email = email@email.com 
 [alias]
         co = checkout
         promote = !$ZSH/bin/git-promote
@@ -22,10 +13,7 @@
         branch = auto
 [core]
         excludesfile = ~/.gitignore
-        editor = mate -w
 [apply]
         whitespace = nowarn
-[github]
-        user = holman
 [mergetool]
         keepBackup = false
