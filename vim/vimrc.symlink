@@ -53,6 +53,8 @@ set guifont=Courier:h15
 " Color Scheme
 syntax enable
 set background=light
+let g:solarized_termcolors=256
+set t_Co=256
 colorscheme solarized
 
 " Split to the right and bottom
